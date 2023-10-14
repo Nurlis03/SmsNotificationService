@@ -1,33 +1,19 @@
 package com.example.twilio.sms;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiResponse {
     private String message;
     private String status;
     private Date date;
-    
-    public ApiResponse(String message, String status, Date date) {
-        this.message = message;
-        this.status = status;
-        this.date = date;
-    }
-    public String getMessage() {
-        return message;
-    }
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public Date getDate() {
-        return date;
-    }
-    public void setDate(Date date) {
-        this.date = date;
-    }
+
 }
