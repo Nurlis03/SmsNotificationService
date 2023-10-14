@@ -2,7 +2,7 @@
 This code represents the TwilioInitializer class, which is a Spring configuration 
 class and initializes the Twilio library to interact with the Twilio API.
  */
-package com.example.twilio.sms;
+package com.example.twilio.sms.config;
 
 import com.twilio.Twilio;
 import org.slf4j.Logger;

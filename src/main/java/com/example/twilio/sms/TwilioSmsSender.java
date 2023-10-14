@@ -1,7 +1,11 @@
 package com.example.twilio.sms;
 
+import com.example.twilio.sms.config.TwilioConfiguration;
+import com.example.twilio.sms.dto.SmsRequestDto;
+import com.example.twilio.sms.exception.InvalidPhoneNumberException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ is managed by the Spring Framework. The string "twilio" in the annotation indica
 under which this service will be available in the Spring container. This allows you to choose 
 between different implementations of the Sms Sender interface, if such implementations exist.
  */
+@Slf4j
 @Service("twilio")
 public class TwilioSmsSender implements SmsSender {
 
@@ -27,17 +32,18 @@ public class TwilioSmsSender implements SmsSender {
     }
 
     @Override
-    public void sendSms(SmsRequest smsRequest) {
-        if (isPhoneNumberValid(smsRequest.getPhoneNumber())) {
-            PhoneNumber to = new PhoneNumber(smsRequest.getPhoneNumber());
+    public void sendSms(SmsRequestDto smsRequestDto) {
+        if (isPhoneNumberValid(smsRequestDto.getPhoneNumber())) {
+            PhoneNumber to = new PhoneNumber(smsRequestDto.getPhoneNumber());
             PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
-            String message = smsRequest.getMessage();
+            String message = smsRequestDto.getMessage();
             
             Message.creator(to, from, message).create();
-            LOGGER.info("Send sms {}", smsRequest);
+            log.info("");
+            LOGGER.info("Send sms {}", smsRequestDto);
         } else {
-            throw new IllegalArgumentException(
-                    "Phone number [" + smsRequest.getPhoneNumber() + "] is not a valid number"
+            throw new InvalidPhoneNumberException(
+                    "Phone number [" + smsRequestDto.getPhoneNumber() + "] is not a valid number"
             );
         }
 
