@@ -1,20 +1,21 @@
 package com.sms.service.impl;
 
-import com.sms.SmsSender;
 import com.sms.dto.SmsRequestDto;
-import com.sms.entity.SmsRequest;
-import com.sms.entity.SmsResponse;
+import com.sms.entity.SmsRequestEntity;
+import com.sms.entity.SmsResponseEntity;
 import com.sms.exception.InvalidPhoneNumberException;
 import com.sms.repository.SmsRequestRepository;
 import com.sms.repository.SmsResponseRepository;
 import com.sms.service.SmsService;
 import com.twilio.exception.ApiException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Date;
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @RequiredArgsConstructor
 @Service
@@ -25,10 +26,18 @@ public class SmsServiceImpl implements SmsService {
     private final SmsResponseRepository smsResponseRepository;
 
     @Override
-    public ResponseEntity<SmsResponse> sendSms(SmsRequestDto smsRequestDto) {
+    public ResponseEntity<SmsResponseEntity> sendSms(SmsRequestDto smsRequestDto) {
+        // Convert the String ID to UUID
+        UUID requestId = UUID.fromString(smsRequestDto.getRequestId());
+        
         // Save the incoming SMS request
-        smsRequestRepository.save(new SmsRequest(smsRequestDto.getPhoneNumber(), smsRequestDto.getMessage()));
+        SmsRequestEntity smsRequestEntity = SmsRequestEntity.builder()
+                            .id(requestId)
+                            .message(smsRequestDto.getMessage())
+                            .phoneNumber(smsRequestDto.getPhoneNumber())
+                            .build();
 
+        smsRequestRepository.save(smsRequestEntity);
         try {
             // Attempt to send the SMS
             smsSender.sendSms(smsRequestDto);
@@ -40,14 +49,20 @@ public class SmsServiceImpl implements SmsService {
     }
 
     // Common method to create an SMS response
-    private ResponseEntity<SmsResponse> createResponse(String message, String status, HttpStatus httpStatus) {
-        SmsResponse response = new SmsResponse(message, status, new Date());
+    private ResponseEntity<SmsResponseEntity> createResponse(String message, String status, HttpStatus httpStatus) {
+        SmsResponseEntity response = SmsResponseEntity.builder()
+                                                      .message(message)
+                                                      .status(status)
+                                                      .date(new Date())
+                                                      .build();
         smsResponseRepository.save(response);
-        return new ResponseEntity<>(response, httpStatus);
+
+        ResponseEntity<SmsResponseEntity> responseEntity = createResponse(message, status, httpStatus);
+        return responseEntity;
     }
 
     // Common method to handle exceptions
-    private ResponseEntity<SmsResponse> handleException(Exception e) {
+    private ResponseEntity<SmsResponseEntity> handleException(Exception e) {
         e.printStackTrace();
         return createResponse(e.getMessage(), "error", HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
     }

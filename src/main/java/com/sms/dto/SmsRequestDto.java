@@ -2,8 +2,10 @@ package com.sms.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.Builder;
 
 @Data
+@Builder
 public class SmsRequestDto {
 
     /*
@@ -13,6 +15,7 @@ public class SmsRequestDto {
     creating a Smsrequest object, these fields will contain non-empty values.
      */
 
+    private String requestId;
     // final, which means that their values cannot be changed after they are set in the constructor.
     @NotBlank
     private String phoneNumber; // destination

@@ -23,10 +23,10 @@ public class TwilioInitializer {
     This is a class field that represents the Twilio Configuration dependency. 
     This dependency will be implemented into the TwilioInitializer class using the constructor.
      */
-    private final TwilioConfiguration twilioConfiguration;
+    private final TwilioProperties twilioConfiguration;
 
     @Autowired
-    public TwilioInitializer(TwilioConfiguration twilioConfiguration) {
+    public TwilioInitializer(TwilioProperties twilioConfiguration) {
         this.twilioConfiguration = twilioConfiguration;
         Twilio.init(
                 twilioConfiguration.getAccountSid(),

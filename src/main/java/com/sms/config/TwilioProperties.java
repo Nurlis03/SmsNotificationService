@@ -20,7 +20,7 @@ in the application.
 @Setter
 @NoArgsConstructor
 @Configuration
-public class TwilioConfiguration {
+public class TwilioProperties {
     
     /*
     These annotations are used to embed values from external properties 

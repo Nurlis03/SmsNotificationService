@@ -1,4 +1,4 @@
-package com.sms;
+package com.sms.service.impl;
 
 
 import com.sms.dto.SmsRequestDto;

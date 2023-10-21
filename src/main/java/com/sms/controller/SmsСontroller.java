@@ -2,7 +2,7 @@ package com.sms.controller;
 
 import com.sms.service.SmsService;
 import com.sms.dto.SmsRequestDto;
-import com.sms.entity.SmsResponse;
+import com.sms.entity.SmsResponseEntity;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/sms")
-public class SmsController {
+public class SmsСontroller {
     private final SmsService smsService;
 
     // @Autowired, which means that Spring will automatically create an 
@@ -28,7 +28,7 @@ public class SmsController {
     // The @Valid annotation indicates the need to validate this object before using it. 
     // @RequestBody specifies that the smsRequest object should be extracted from the request body.
     @PostMapping
-    public ResponseEntity<SmsResponse> sendSms(@Valid @RequestBody SmsRequestDto smsRequestDto) {
+    public ResponseEntity<SmsResponseEntity> sendSms(@Valid @RequestBody SmsRequestDto smsRequestDto) {
         return smsService.sendSms(smsRequestDto);
     }
 }

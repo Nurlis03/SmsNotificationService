@@ -1,26 +1,25 @@
 package com.sms.entity;
 
 import java.util.Date;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "sms_responses")
 @Getter
 @Setter
-public class SmsResponse {
+@Builder
+@AllArgsConstructor
+public class SmsResponseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
     private String message;
     private String status;
     private Date date;
-
-    public SmsResponse (String message, String status, Date date) {
-        this.message = message;
-        this.status = status;
-        this.date = date;
-    }
 }

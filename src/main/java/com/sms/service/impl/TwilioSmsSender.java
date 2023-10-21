@@ -1,6 +1,6 @@
-package com.sms;
+package com.sms.service.impl;
 
-import com.sms.config.TwilioConfiguration;
+import com.sms.config.TwilioProperties;
 import com.sms.dto.SmsRequestDto;
 import com.sms.exception.InvalidPhoneNumberException;
 import com.twilio.rest.api.v2010.account.Message;
@@ -19,10 +19,10 @@ between different implementations of the Sms Sender interface, if such implement
  */
 @Slf4j
 @AllArgsConstructor
-@Service("twilio")
+@Service
 public class TwilioSmsSender implements SmsSender {
 
-    private final TwilioConfiguration twilioConfiguration;
+    private final TwilioProperties twilioConfiguration;
 
     @Override
     public void sendSms(SmsRequestDto smsRequestDto) {
