@@ -1,12 +1,10 @@
-package com.example.twilio.sms.controller;
+package com.sms.controller;
 
-import java.util.Date;
+import com.sms.service.SmsService;
+import com.sms.dto.SmsRequestDto;
+import com.sms.entity.SmsResponse;
 
-import com.example.twilio.sms.ApiResponse;
-import com.example.twilio.sms.service.SMSService;
-import com.example.twilio.sms.dto.SmsRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +18,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("api/v1/sms")
 public class SmsController {
-    private final SMSService smsService;
+    private final SmsService smsService;
 
     // @Autowired, which means that Spring will automatically create an 
     // instance of Service 
@@ -30,9 +28,7 @@ public class SmsController {
     // The @Valid annotation indicates the need to validate this object before using it. 
     // @RequestBody specifies that the smsRequest object should be extracted from the request body.
     @PostMapping
-    public ResponseEntity<ApiResponse> sendSms(@Valid @RequestBody SmsRequestDto smsRequestDto) {
-        return  smsService.sendSms(smsRequestDto);
-
-
+    public ResponseEntity<SmsResponse> sendSms(@Valid @RequestBody SmsRequestDto smsRequestDto) {
+        return smsService.sendSms(smsRequestDto);
     }
 }

@@ -1,7 +1,7 @@
-package com.example.twilio.sms;
+package com.sms;
 
 
-import com.example.twilio.sms.dto.SmsRequestDto;
+import com.sms.dto.SmsRequestDto;
 
 public interface SmsSender {
 

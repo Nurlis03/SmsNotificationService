@@ -1,4 +1,4 @@
-package com.example.twilio.sms.exception;
+package com.sms.exception;
 
 public class InvalidPhoneNumberException extends RuntimeException {
 
