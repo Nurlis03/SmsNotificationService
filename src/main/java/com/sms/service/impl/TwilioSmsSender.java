@@ -3,6 +3,7 @@ package com.sms.service.impl;
 import com.sms.config.TwilioProperties;
 import com.sms.dto.SmsRequestDto;
 import com.sms.exception.InvalidPhoneNumberException;
+import com.sms.service.SmsSender;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 

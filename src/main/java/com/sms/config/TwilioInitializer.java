@@ -23,17 +23,17 @@ public class TwilioInitializer {
     This is a class field that represents the Twilio Configuration dependency. 
     This dependency will be implemented into the TwilioInitializer class using the constructor.
      */
-    private final TwilioProperties twilioConfiguration;
+    private final TwilioProperties twilioProperties;
 
     @Autowired
-    public TwilioInitializer(TwilioProperties twilioConfiguration) {
-        this.twilioConfiguration = twilioConfiguration;
+    public TwilioInitializer(TwilioProperties twilioProperties) {
+        this.twilioProperties = twilioProperties;
         Twilio.init(
-                twilioConfiguration.getAccountSid(),
-                twilioConfiguration.getAuthToken()
+            twilioProperties.getAccountSid(),
+            twilioProperties.getAuthToken()
         );
-        log.info("Twilio initialized ... with account sid {} ", twilioConfiguration.getAccountSid());
-        log.info("Twilio initialized ... with auth token {} ", twilioConfiguration.getAuthToken());
-        log.info("Twilio initialized ... with trial number {} ", twilioConfiguration.getTrialNumber());
+        log.info("Twilio initialized ... with account sid {} ", twilioProperties.getAccountSid());
+        log.info("Twilio initialized ... with auth token {} ", twilioProperties.getAuthToken());
+        log.info("Twilio initialized ... with trial number {} ", twilioProperties.getTrialNumber());
     }
 }

@@ -6,6 +6,7 @@ import com.sms.entity.SmsResponseEntity;
 import com.sms.exception.InvalidPhoneNumberException;
 import com.sms.repository.SmsRequestRepository;
 import com.sms.repository.SmsResponseRepository;
+import com.sms.service.SmsSender;
 import com.sms.service.SmsService;
 import com.twilio.exception.ApiException;
 import lombok.RequiredArgsConstructor;
